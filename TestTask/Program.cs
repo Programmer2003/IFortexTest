@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TestTask.Data;
+using TestTask.Services.Implementations;
+using TestTask.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
